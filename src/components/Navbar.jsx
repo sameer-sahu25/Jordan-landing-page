@@ -2,14 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Search, ShoppingCart, User } from 'lucide-react';
 
-const Navbar = () => {
+const Navbar = ({ currentSection, setCurrentSection }) => {
   return (
     <nav className="relative z-20 flex items-center justify-between px-8 py-6 md:px-12">
       <div className="flex items-center gap-8">
         <motion.div 
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          className="flex items-center gap-6"
+          onClick={() => setCurrentSection('HOME')}
+          className="flex items-center gap-6 cursor-pointer"
         >
           {/* SVG Jordan Logo */}
           <svg className="h-8 w-auto fill-white" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -26,10 +27,11 @@ const Navbar = () => {
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1 * idx }}
-              className="cursor-pointer hover:text-red-500 transition-colors relative group"
+              onClick={() => setCurrentSection(item)}
+              className={`cursor-pointer hover:text-red-500 transition-colors relative group ${currentSection === item ? 'text-red-500' : ''}`}
             >
-              {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full" />
+              {item === 'WOMAN' ? 'WOMEN' : item}
+              <span className={`absolute -bottom-1 left-0 h-0.5 bg-red-600 transition-all ${currentSection === item ? 'w-full' : 'w-0 group-hover:w-full'}`} />
             </motion.li>
           ))}
         </ul>
